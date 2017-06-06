@@ -1,4 +1,4 @@
-package test.service;
+package test.service.common;
 
 import test.dao.IOperations;
 

@@ -44,6 +44,8 @@
         <jcl-over-slf4j.version>1.7.25</jcl-over-slf4j.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.12</junit.version>
+        <guava.version>19.0</guava.version>
+
     </properties>
 
     <dependencies>
@@ -81,6 +83,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>

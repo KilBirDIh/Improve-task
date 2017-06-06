@@ -9,8 +9,6 @@ public interface IOperations<T extends Serializable>
 
     List<T> findAll();
 
-    void setClazz(Class<T> clazz);
-
     void create(final T entity);
 
     void update(final T entity);

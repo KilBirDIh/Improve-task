@@ -7,13 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import test.dao.IOperations;
+import test.dao.impl.DepartmentDao;
+import test.dao.impl.EmployeeDao;
+import test.dao.impl.MeetingDao;
 import test.models.Department;
 import test.models.Employee;
 import test.models.Meeting;
-import test.dao.GenericHibernateDao;
-import test.dao.IGenericDao;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -23,7 +25,8 @@ import java.util.Properties;
 @ComponentScan("test")
 public class DataConfig
 {
-    private Properties getHibernateProperties() {
+    private Properties getHibernateProperties()
+    {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "false");
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
@@ -32,7 +35,8 @@ public class DataConfig
     }
 
     @Bean(name = "dataSource")
-    public DataSource getDataSource() {
+    public DataSource getDataSource()
+    {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/improve_group");
@@ -41,30 +45,59 @@ public class DataConfig
         return dataSource;
     }
 
-    @Autowired
     @Bean(name = "sessionFactory")
-    public SessionFactory getSessionFactory(DataSource dataSource) {
-        LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-        sessionBuilder.addProperties(getHibernateProperties());
-        sessionBuilder.addAnnotatedClasses(Employee.class);
-        sessionBuilder.addAnnotatedClass(Department.class);
-        sessionBuilder.addAnnotatedClass(Meeting.class);
-        return sessionBuilder.buildSessionFactory();
+    public LocalSessionFactoryBean getSessionFactory()
+    {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(getDataSource());
+        sessionFactory.setPackagesToScan(new String[]{"test.models"});
+        sessionFactory.setHibernateProperties(getHibernateProperties());
+        return sessionFactory;
     }
 
     @Autowired
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(
-            SessionFactory sessionFactory) {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager(
+            SessionFactory sessionFactory)
+    {
+        return new HibernateTransactionManager(
                 sessionFactory);
-
-        return transactionManager;
     }
 
-    @Autowired
-    @Bean(name = "hibernateDao")
-    public IGenericDao getHibernateDao(SessionFactory sessionFactory) {
-        return new GenericHibernateDao(sessionFactory);
+    @Bean(name = "employeeDao")
+    public IOperations<Employee> getEmployeeDao()
+    {
+        return new EmployeeDao();
     }
+
+    @Bean(name = "departmentDao")
+    public IOperations<Department> getDepartmentDao()
+    {
+        return new DepartmentDao();
+    }
+
+    @Bean(name = "meetingDao")
+    public IOperations<Meeting> getMeetingDao()
+    {
+        return new MeetingDao();
+    }
+
+   /* @Bean(name = "employeeService")
+    public IOperations<Employee> getEmployeeService()
+    {
+        return new EmployeeService();
+    }
+
+    @Bean(name = "departmentService")
+    public IOperations<Department> getDepartmentService()
+    {
+        return new DepartmentService();
+    }
+
+    @Bean(name = "meetingService")
+    public IOperations<Meeting> getMeetingService()
+    {
+        return new MeetingService();
+    }*/
 }
+
