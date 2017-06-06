@@ -1,4 +1,4 @@
-package test.service.dao;
+package test.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -3,7 +3,7 @@ package test.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import test.models.Employee;
-import test.service.dao.IGenericDao;
+import test.dao.IGenericDao;
 
 @Service
 public class EmployeeService

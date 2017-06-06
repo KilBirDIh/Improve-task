@@ -1,4 +1,4 @@
-package test.service.dao;
+package test.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.config.BeanDefinition;

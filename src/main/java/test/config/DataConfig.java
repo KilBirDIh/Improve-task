@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import test.models.Department;
 import test.models.Employee;
 import test.models.Meeting;
-import test.service.dao.GenericHibernateDao;
-import test.service.dao.IGenericDao;
+import test.dao.GenericHibernateDao;
+import test.dao.IGenericDao;
 
 import javax.sql.DataSource;
 import java.util.Properties;

@@ -1,9 +1,9 @@
-package test.service.dao;
+package test.dao;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface IGenericDao<T extends Serializable>
+public interface IOperations<T extends Serializable>
 {
     T findOne(final long id);
 

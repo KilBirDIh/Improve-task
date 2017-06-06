@@ -31,12 +31,19 @@
                 </select>
             </div>
         </div>
-        <button class="btn btn-default" onclick="filter();">Отфильтровать</button>
+
+        <label for="departments">Подразделение</label><select id="departments" name="listDepartments">
+
+            <c:forEach var="department" items="${departmentList}">
+
+                <option value="${department.name}">${department.name}</option>
+
+            </c:forEach>
+
+        </select>
+        <button class="btn btn-default">Отфильтровать</button>
     </form>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Создать новое совещание
-    </button>
 </div>
 </body>
 </html>
