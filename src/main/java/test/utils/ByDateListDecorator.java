@@ -22,13 +22,13 @@ public class ByDateListDecorator extends ListDecorator
     @Override
     public List<Meeting> getList()
     {
-        List<Meeting> temp = super.getList();
+        List<Meeting> result = super.getList();
         if (endDate == null && startDate == null)
         {
-            return temp;
+            return result;
         } else if (endDate == null)
         {
-            ListIterator<Meeting> iterator = temp.listIterator();
+            ListIterator<Meeting> iterator = result.listIterator();
             while (iterator.hasNext())
             {
                 if (iterator.next().getMeetingDateTime().isBefore(startDate))
@@ -36,7 +36,7 @@ public class ByDateListDecorator extends ListDecorator
             }
         } else if (startDate == null)
         {
-            ListIterator<Meeting> iterator = temp.listIterator();
+            ListIterator<Meeting> iterator = result.listIterator();
             while (iterator.hasNext())
             {
                 if (iterator.next().getMeetingDateTime().isAfter(endDate))
@@ -44,13 +44,13 @@ public class ByDateListDecorator extends ListDecorator
             }
         } else
         {
-            ListIterator<Meeting> iterator = temp.listIterator();
+            ListIterator<Meeting> iterator = result.listIterator();
             while (iterator.hasNext())
             {
                 if (iterator.next().getMeetingDateTime().isAfter(endDate) && iterator.next().getMeetingDateTime().isBefore(startDate))
                     iterator.remove();
             }
         }
-        return temp;
+        return result;
     }
 }

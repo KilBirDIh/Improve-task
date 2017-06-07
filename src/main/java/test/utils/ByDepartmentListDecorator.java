@@ -3,13 +3,13 @@ package test.utils;
 import test.models.Meeting;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public class ByDepartmentListDecorator extends ListDecorator
 {
-    IListDecorator listDecorator;
-    private int id;
+    private Integer id;
 
-    public ByDepartmentListDecorator(IListDecorator listDecorator, int id)
+    public ByDepartmentListDecorator(IListDecorator listDecorator, Integer id)
     {
         super(listDecorator);
         this.id = id;
@@ -18,8 +18,15 @@ public class ByDepartmentListDecorator extends ListDecorator
     @Override
     public List<Meeting> getList()
     {
-        List<Meeting> temp = super.getList();
-
-        return super.getList();
+        List<Meeting> result = super.getList();
+        if(id != 0)
+        {
+            ListIterator<Meeting> iterator = result.listIterator();
+            while (iterator.hasNext())
+            {
+                if (iterator.next().getResponsibleDepartment().getId() != id) iterator.remove();
+            }
+        }
+        return result;
     }
 }

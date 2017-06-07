@@ -7,7 +7,7 @@ import test.dao.IOperations;
 import test.models.Employee;
 import test.service.common.AbstractHibernateService;
 
-@Service
+@Service("employeeService")
 public class EmployeeService extends AbstractHibernateService<Employee> implements IOperations<Employee>
 {
     @Autowired

@@ -1,5 +1,8 @@
 package test.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -51,8 +54,9 @@ public class Meeting implements Serializable
         this.subject = subject;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "resp_department", nullable = false)
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Department getResponsibleDepartment()
     {
         return responsibleDepartment;
@@ -63,8 +67,9 @@ public class Meeting implements Serializable
         this.responsibleDepartment = responsibleDepartment;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "resp_employee", nullable = false)
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Employee getResponsibleEmployee()
     {
         return responsibleEmployee;
@@ -75,7 +80,8 @@ public class Meeting implements Serializable
         this.responsibleEmployee = responsibleEmployee;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "memberOfMeetings")
+    @ManyToMany(mappedBy = "memberOfMeetings")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Employee> getMembersOfMeeting()
     {
         return membersOfMeeting;

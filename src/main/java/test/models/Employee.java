@@ -1,5 +1,8 @@
 package test.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -76,7 +79,8 @@ public class Employee implements Serializable
         this.dateOfBirth = dateOfBirth;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "responsibleEmployee")
+    @OneToMany(mappedBy = "responsibleEmployee")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Meeting> getResponsibleForMeetings()
     {
         return responsibleForMeetings;
@@ -92,6 +96,7 @@ public class Employee implements Serializable
                joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "meeting_id", referencedColumnName = "id")
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Meeting> getMemberOfMeetings()
     {
         return memberOfMeetings;
@@ -102,8 +107,9 @@ public class Employee implements Serializable
         this.memberOfMeetings = memberOfMeetings;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department", nullable = false)
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Department getDepartment()
     {
         return department;
