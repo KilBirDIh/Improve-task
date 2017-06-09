@@ -12,10 +12,10 @@ import java.util.Collection;
 @Table(name = "employee")
 public class Employee implements Serializable
 {
-    private int id;
+    private Long id;
     private String name;
     private String surname;
-    private String secondName;
+    private String patronymic;
     private LocalDate dateOfBirth;
     private Collection<Meeting> responsibleForMeetings;
     private Collection<Meeting> memberOfMeetings;
@@ -25,12 +25,12 @@ public class Employee implements Serializable
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId()
+    public Long getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Long id)
     {
         this.id = id;
     }
@@ -58,14 +58,14 @@ public class Employee implements Serializable
     }
 
     @Column(name = "second_name")
-    public String getSecondName()
+    public String getPatronymic()
     {
-        return secondName;
+        return patronymic;
     }
 
-    public void setSecondName(String secondName)
+    public void setPatronymic(String patronymic)
     {
-        this.secondName = secondName;
+        this.patronymic = patronymic;
     }
 
     @Column(name = "date_of_birth")
@@ -127,7 +127,7 @@ public class Employee implements Serializable
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", secondName='" + secondName + '\'' +
+                ", patronymic='" + patronymic + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", responsibleForMeetings=" + responsibleForMeetings +
                 ", memberOfMeetings=" + memberOfMeetings +

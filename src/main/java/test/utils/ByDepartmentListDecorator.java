@@ -4,12 +4,13 @@ import test.models.Meeting;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 public class ByDepartmentListDecorator extends ListDecorator
 {
-    private Integer id;
+    private Long id;
 
-    public ByDepartmentListDecorator(IListDecorator listDecorator, Integer id)
+    public ByDepartmentListDecorator(IListDecorator listDecorator, Long id)
     {
         super(listDecorator);
         this.id = id;
@@ -24,7 +25,7 @@ public class ByDepartmentListDecorator extends ListDecorator
             ListIterator<Meeting> iterator = result.listIterator();
             while (iterator.hasNext())
             {
-                if (iterator.next().getResponsibleDepartment().getId() != id) iterator.remove();
+                if (!Objects.equals(iterator.next().getResponsibleDepartment().getId(), id)) iterator.remove();
             }
         }
         return result;

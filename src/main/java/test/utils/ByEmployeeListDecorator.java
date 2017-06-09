@@ -1,8 +1,5 @@
 package test.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import test.dao.IOperations;
-import test.models.Employee;
 import test.models.Meeting;
 
 import java.util.List;
@@ -10,11 +7,9 @@ import java.util.ListIterator;
 
 public class ByEmployeeListDecorator extends ListDecorator
 {
-    private Integer id;
-    @Autowired
-    private IOperations<Employee> employeeService;
+    private Long id;
 
-    public ByEmployeeListDecorator(IListDecorator listDecorator, Integer id)
+    public ByEmployeeListDecorator(IListDecorator listDecorator, Long id)
     {
         super(listDecorator);
         this.id = id;
@@ -26,11 +21,10 @@ public class ByEmployeeListDecorator extends ListDecorator
         List<Meeting> result = super.getList();
         if(id != 0)
         {
-            Employee employee = employeeService.findOne(id);
             ListIterator<Meeting> iterator = result.listIterator();
             while (iterator.hasNext())
             {
-                if (!iterator.next().getMembersOfMeeting().contains(employee)) iterator.remove();
+                if (!iterator.next().getMembersOfMeeting().stream().anyMatch(employee1 -> employee1.getId().equals(id))) iterator.remove();
             }
         }
         return result;

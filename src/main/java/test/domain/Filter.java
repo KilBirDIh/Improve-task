@@ -1,4 +1,4 @@
-package test.models;
+package test.domain;
 
 public class Filter
 {

@@ -12,7 +12,7 @@ import java.util.Collection;
 @Table(name = "meeting")
 public class Meeting implements Serializable
 {
-    private int id;
+    private Long id;
     private LocalDateTime meetingDateTime;
     private String subject;
     private Department responsibleDepartment;
@@ -22,12 +22,12 @@ public class Meeting implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public int getId()
+    public Long getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Long id)
     {
         this.id = id;
     }
@@ -54,7 +54,7 @@ public class Meeting implements Serializable
         this.subject = subject;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "resp_department", nullable = false)
     @LazyCollection(LazyCollectionOption.FALSE)
     public Department getResponsibleDepartment()
@@ -67,7 +67,7 @@ public class Meeting implements Serializable
         this.responsibleDepartment = responsibleDepartment;
     }
 
-    @ManyToOne( cascade = CascadeType.ALL)
+    @ManyToOne( cascade = CascadeType.MERGE)
     @JoinColumn(name = "resp_employee", nullable = false)
     @LazyCollection(LazyCollectionOption.FALSE)
     public Employee getResponsibleEmployee()
@@ -80,7 +80,7 @@ public class Meeting implements Serializable
         this.responsibleEmployee = responsibleEmployee;
     }
 
-    @ManyToMany(mappedBy = "memberOfMeetings")
+    @ManyToMany(mappedBy = "memberOfMeetings", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Employee> getMembersOfMeeting()
     {

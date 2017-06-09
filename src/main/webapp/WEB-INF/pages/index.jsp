@@ -17,6 +17,7 @@
             <div class="col-md-4">
                 <div class="md-form">
                     <form:label path="name">Тема</form:label>
+                    <br/>
                     <form:input type="text" path="name" name="name" class="form-control"/>
                     <br/>
                 </div>
@@ -52,7 +53,33 @@
         </div>
 
         <button type="submit" class="btn btn-default">Отфильтровать</button>
+        <%--@elvariable id="meetingList" type="java.util.List"--%>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Тема</th>
+                    <th>Подразделение</th>
+                    <th>Ответственный</th>
+                    <th>Состав</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <c:forEach items="${meetingList}" var="meeting">
+                    <tr>
+                        <td><c:out value="${meeting.meetingDateTime.toLocalDate()}" /></td>
+                        <td><a href="${pageContext.request.contextPath}/meeting/edit?id=${meeting.id}"><c:out value="${meeting.subject}" /></a></td>
+                        <td><c:out value="${meeting.responsibleDepartment.name}" /></td>
+                        <td><c:out value="${meeting.responsibleEmployee.surname} ${meeting.responsibleEmployee.name.substring(0, 1)}. ${meeting.responsibleEmployee.patronymic.substring(0, 1)}." /></td>
+                        <td><c:out value="${meeting.membersOfMeeting.size()}"/> </td>
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+            </table>
     </form:form>
+    <a href="${pageContext.request.contextPath}/meeting/create" class=" btn btn-default">Создать новое</a>
 
 </div>
 </body>

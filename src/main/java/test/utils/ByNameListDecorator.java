@@ -23,7 +23,7 @@ public class ByNameListDecorator extends ListDecorator
             ListIterator<Meeting> iterator = result.listIterator();
             while (iterator.hasNext())
             {
-                if (!iterator.next().getSubject().equals(name))
+                if (!iterator.next().getSubject().contains(name))
                 {
                     iterator.remove();
                 }

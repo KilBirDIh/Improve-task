@@ -28,13 +28,13 @@ public abstract class AbstractHibernateDao<T extends Serializable> extends Abstr
 
     public void create(T entity)
     {
-        getCurrentSession().persist(entity);
+        getCurrentSession().saveOrUpdate(entity);
     }
 
 
     public void update(T entity)
     {
-        getCurrentSession().merge(entity);
+        getCurrentSession().saveOrUpdate(entity);
     }
 
     public void delete(T entity)

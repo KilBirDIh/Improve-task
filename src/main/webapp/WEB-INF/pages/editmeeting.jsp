@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Meeting info</title>
+    <title>Edit meeting</title>
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Material Design Bootstrap -->
@@ -13,7 +13,8 @@
 <script href="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.js" type="text/javascript"></script>
 <div class="container">
     <div class="col-md-6">
-        <form:form method="post" action="${pageContext.request.contextPath}/meeting/create" modelAttribute="meeting">
+        <form:form method="post" action="${pageContext.request.contextPath}/meeting/edit" modelAttribute="meeting">
+            <form:input type="hidden" path="meetingId"/>
             <form:label path="subject">Тема</form:label>
             <form:input path="subject" type="text"/>
             <form:label path="datetime">Время проведения</form:label>
@@ -37,7 +38,7 @@
                             value="${employee.id}">${employee.surname} ${employee.name} ${employee.patronymic} ${employee.department.name}</form:option>
 
                 </c:forEach>
-                = </form:select>
+            </form:select>
 
             <br/>
 
@@ -86,7 +87,7 @@
                 </c:forEach>
             </select>
 
-            <a href="">Добавить</a>
+            <a href="">Dobavit</a>
             <button class="btn btn-default" type="submit">Сохранить</button>
         </form:form>
     </div>

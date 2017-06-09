@@ -16,6 +16,9 @@ import test.dao.impl.MeetingDao;
 import test.models.Department;
 import test.models.Employee;
 import test.models.Meeting;
+import test.service.impl.DepartmentService;
+import test.service.impl.EmployeeService;
+import test.service.impl.MeetingService;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -82,7 +85,7 @@ public class DataConfig
         return new MeetingDao();
     }
 
-   /* @Bean(name = "employeeService")
+    @Bean(name = "employeeService")
     public IOperations<Employee> getEmployeeService()
     {
         return new EmployeeService();
@@ -98,6 +101,6 @@ public class DataConfig
     public IOperations<Meeting> getMeetingService()
     {
         return new MeetingService();
-    }*/
+    }
 }
 
